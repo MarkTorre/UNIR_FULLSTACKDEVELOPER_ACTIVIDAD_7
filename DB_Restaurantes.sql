@@ -51,9 +51,9 @@ COLLATE = utf8mb4_unicode_ci;
 -- Table `db_restaurantes`.`favoritos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_restaurantes`.`favoritos` (
-  `id` INT(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT,
-  `fk_restaurantes` INT(10) UNSIGNED ZEROFILL NOT NULL,
-  `fk_clientes` INT(10) UNSIGNED ZEROFILL NOT NULL,
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `fk_restaurantes` INT UNSIGNED NOT NULL,
+  `fk_clientes` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_favoritos_restaurantes_idx` (`fk_restaurantes` ASC) VISIBLE,
   INDEX `fk_favoritos_clientes_idx` (`fk_clientes` ASC) VISIBLE,
@@ -157,5 +157,70 @@ INSERT IGNORE mesas(id, fk_restaurantes, numero, comensales) VALUES (18, 9, 2, 4
 INSERT IGNORE mesas(id, fk_restaurantes, numero, comensales) VALUES (19, 10, 1, 5);
 INSERT IGNORE mesas(id, fk_restaurantes, numero, comensales) VALUES (20, 10, 2, 4);
 
+# 1.3 INSERCCIÓN 10 CLIENTES.
+INSERT IGNORE INTO clientes(id, email, nombre, telefono) VALUES (1, "juan.perez@gmail.com", "Juan Pérez", "600111222");
+INSERT IGNORE INTO clientes(id, email, nombre, telefono) VALUES (2, "maria.lopez@gmail.com", "María López", "600111223");
+INSERT IGNORE INTO clientes(id, email, nombre, telefono) VALUES (3, "carlos.sanchez@gmail.com", "Carlos Sánchez", "600111224");
+INSERT IGNORE INTO clientes(id, email, nombre, telefono) VALUES (4, "laura.garcia@gmail.com", "Laura García", "600111225");
+INSERT IGNORE INTO clientes(id, email, nombre, telefono) VALUES (5, "pedro.martin@gmail.com", "Pedro Martín", "600111226");
+INSERT IGNORE INTO clientes(id, email, nombre, telefono) VALUES (6, "ana.ruiz@gmail.com", "Ana Ruiz", "600111227");
+INSERT IGNORE INTO clientes(id, email, nombre, telefono) VALUES (7, "david.fernandez@gmail.com", "David Fernández", "600111228");
+INSERT IGNORE INTO clientes(id, email, nombre, telefono) VALUES (8, "lucia.gomez@gmail.com", "Lucía Gómez", "600111229");
+INSERT IGNORE INTO clientes(id, email, nombre, telefono) VALUES (9, "jorge.diaz@gmail.com", "Jorge Díaz", "600111230");
+INSERT IGNORE INTO clientes(id, email, nombre, telefono) VALUES (10, "sofia.alonso@gmail.com", "Sofía Alonso", "600111231");
 
-# 2. SENTENCIAS DE ADQUISICIÓN
+# 1.4 INSERCCIÓN 20 RESTAURANTES FAVORITOS REPARTIDOS ENTRE TODOS LOS RESTAURANTES Y CLIENTES
+INSERT IGNORE INTO favoritos(id, fk_restaurantes, fk_clientes) VALUES (1, 1, 1);
+INSERT IGNORE INTO favoritos(id, fk_restaurantes, fk_clientes) VALUES (2, 1, 2);
+
+INSERT IGNORE INTO favoritos(id, fk_restaurantes, fk_clientes) VALUES (3, 2, 2);
+INSERT IGNORE INTO favoritos(id, fk_restaurantes, fk_clientes) VALUES (4, 2, 3);
+
+INSERT IGNORE INTO favoritos(id, fk_restaurantes, fk_clientes) VALUES (5, 3, 3);
+INSERT IGNORE INTO favoritos(id, fk_restaurantes, fk_clientes) VALUES (6, 3, 4);
+
+INSERT IGNORE INTO favoritos(id, fk_restaurantes, fk_clientes) VALUES (7, 4, 4);
+INSERT IGNORE INTO favoritos(id, fk_restaurantes, fk_clientes) VALUES (8, 4, 5);
+
+INSERT IGNORE INTO favoritos(id, fk_restaurantes, fk_clientes) VALUES (9, 5, 5);
+INSERT IGNORE INTO favoritos(id, fk_restaurantes, fk_clientes) VALUES (10, 5, 6);
+
+INSERT IGNORE INTO favoritos(id, fk_restaurantes, fk_clientes) VALUES (11, 6, 6);
+INSERT IGNORE INTO favoritos(id, fk_restaurantes, fk_clientes) VALUES (12, 6, 7);
+
+INSERT IGNORE INTO favoritos(id, fk_restaurantes, fk_clientes) VALUES (13, 7, 7);
+INSERT IGNORE INTO favoritos(id, fk_restaurantes, fk_clientes) VALUES (14, 7, 8);
+
+INSERT IGNORE INTO favoritos(id, fk_restaurantes, fk_clientes) VALUES (15, 8, 8);
+INSERT IGNORE INTO favoritos(id, fk_restaurantes, fk_clientes) VALUES (16, 8, 9);
+
+INSERT IGNORE INTO favoritos(id, fk_restaurantes, fk_clientes) VALUES (17, 9, 9);
+INSERT IGNORE INTO favoritos(id, fk_restaurantes, fk_clientes) VALUES (18, 9, 10);
+
+INSERT IGNORE INTO favoritos(id, fk_restaurantes, fk_clientes) VALUES (19, 10, 10);
+INSERT IGNORE INTO favoritos(id, fk_restaurantes, fk_clientes) VALUES (20, 10, 1);
+
+# 1.5 INSERCCIÓN 20 RESERVAS REPARTIDAS ENTRE TODOS LOS RESTAURANTES Y CLIENTES
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (1, 1, 1, "2026-06-01 10:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (2, 1, 2, "2026-06-01 10:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (3, 2, 3, "2026-06-02 10:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (4, 2, 4, "2026-06-02 10:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (5, 3, 5, "2026-06-03 10:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (6, 3, 6, "2026-06-03 10:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (7, 4, 7, "2026-06-01 10:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (8, 4, 8, "2026-06-01 10:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (9, 5, 9, "2026-06-01 10:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (10, 5, 10, "2026-06-01 10:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (11, 6, 11, "2026-06-01 10:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (12, 6, 12, "2026-06-01 10:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (13, 7, 13, "2026-06-01 10:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (14, 7, 14, "2026-06-01 10:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (15, 8, 15, "2026-06-01 10:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (16, 8, 16, "2026-06-01 10:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (17, 9, 17, "2026-06-01 10:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (18, 9, 18, "2026-06-01 10:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (19, 10, 19, "2026-06-01 10:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (20, 10, 20, "2026-06-01 10:00:00");
+
+
+# 2. SENTENCIAS DE ADQUISICIÓN CLIENTES
