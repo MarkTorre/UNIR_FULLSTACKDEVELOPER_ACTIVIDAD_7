@@ -223,3 +223,13 @@ INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (19
 INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (20, 10, 20, "2026-06-01 21:00:00");
 
 # 2. SENTENCIAS DE ADQUISICIÓN CLIENTES
+#2.1 OBTENCIÓN TODAS LAS RESERVAS QUE TIENEN UN RESTAURANTE PARA UN DÍA CONCRETO (DATOS CLIENTE Y MESA RESERVADA).
+SELECT c.nombre, c.email, c.telefono, m.numero, m.comensales FROM mesas as m
+INNER JOIN reservas as r
+	ON m.id = r.fk_mesas
+INNER JOIN clientes as c
+	ON c.id = r.fk_clientes
+WHERE m.fk_restaurantes = 1 
+	AND r.fecha_reserva="2026-06-01 10:00:00" ;
+
+
