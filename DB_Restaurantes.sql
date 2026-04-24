@@ -115,7 +115,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 # 1. SENTENCIAS DE INSERCCIÓN
 # 1.1 INSERCCIÓN DE 10 RESTAURANTES
-INSERT IGNORE INTO restaurantes(id, nombre, direccion, telefono, abierto, responsable) VALUES (1,"Masnou","Passeig Mas Masnou, s/n, 17811 Santa Pau, Girona", "(+34)972454185", 0, "Josep ");
+INSERT IGNORE INTO restaurantes(id, nombre, direccion, telefono, abierto, responsable) VALUES (1,"Masnou","Passeig Mas Masnou, s/n, 17811 Santa Pau, Girona", "(+34)972454185", 1, "Josep ");
 INSERT IGNORE INTO restaurantes(id, nombre, direccion, telefono, abierto, responsable) VALUES (2,"Los Montes de Galicia","C. de Azcona, 46, Salamanca, 28028 Madrid", "(+34)972454175",  0, "Alberto");
 INSERT IGNORE INTO restaurantes(id, nombre, direccion, telefono, abierto, responsable) VALUES (3,"Boroa Jatetxea", "San Pedro de Boroa, 11, Astepe, 48340 Boroa, Bizkaia", "(+34)972454775", 1, "Eloy");
 INSERT IGNORE INTO restaurantes(id, nombre, direccion, telefono, abierto, responsable) VALUES (4,"Taberna Casa Manteca", "C. Corralón de los Carros, 66, 11002 Cádiz", "(+34)972464175", 1, "Mireia");
@@ -224,12 +224,25 @@ INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (20
 
 # 2. SENTENCIAS DE ADQUISICIÓN CLIENTES
 #2.1 OBTENCIÓN TODAS LAS RESERVAS QUE TIENEN UN RESTAURANTE PARA UN DÍA CONCRETO (DATOS CLIENTE Y MESA RESERVADA).
-SELECT c.nombre, c.email, c.telefono, m.numero, m.comensales FROM mesas as m
+SET @RESTAURANTE_1 = 1;
+SET @FECHA_RESERVAS = "2026-06-01 10:00:00";
+
+SELECT c.nombre, c.email, c.telefono, m.numero, m.comensales FROM clientes as c
 INNER JOIN reservas as r
-	ON m.id = r.fk_mesas
-INNER JOIN clientes as c
 	ON c.id = r.fk_clientes
-WHERE m.fk_restaurantes = 1 
-	AND r.fecha_reserva="2026-06-01 10:00:00" ;
+INNER JOIN mesas as m
+	ON m.id = r.fk_clientes
+WHERE m.fk_restaurantes = @RESTAURANTE_1
+	AND r.fecha_reserva = @FECHA_RESERVAS;
+    
+#2.2 OBTENCIÓN TODAS LOS NOMBRES DE LOS RESTAURANTES FAVORITOS Y QUE ESTÉN ABIERTOS, PARA UN CLIENTE CONCRETO.
+SET @RESTAURANTE_ABIERTO = 1;
+SET @CLIENTE_ID = 1;
 
-
+SELECT r.nombre as 'restaurantes_abiertos_favoritos', c.nombre as 'nombre_cliente'  FROM  restaurantes as r
+INNER JOIN favoritos as f
+	ON r.id = f.fk_restaurantes
+INNER JOIN clientes as c
+	ON c.id = f.fk_clientes
+WHERE r.abierto = @RESTAURANTE_ABIERTO 
+	AND c.id = @CLIENTE_ID;
