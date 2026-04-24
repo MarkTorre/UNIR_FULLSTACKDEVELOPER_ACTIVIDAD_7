@@ -205,22 +205,21 @@ INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (1,
 INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (2, 1, 2, "2026-06-01 10:00:00");
 INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (3, 2, 3, "2026-06-02 10:00:00");
 INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (4, 2, 4, "2026-06-02 10:00:00");
-INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (5, 3, 5, "2026-06-03 10:00:00");
-INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (6, 3, 6, "2026-06-03 10:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (5, 3, 5, "2026-06-03 11:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (6, 3, 6, "2026-06-03 11:00:00");
 INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (7, 4, 7, "2026-06-01 10:00:00");
 INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (8, 4, 8, "2026-06-01 10:00:00");
-INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (9, 5, 9, "2026-06-01 10:00:00");
-INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (10, 5, 10, "2026-06-01 10:00:00");
-INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (11, 6, 11, "2026-06-01 10:00:00");
-INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (12, 6, 12, "2026-06-01 10:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (9, 5, 9, "2026-06-01 12:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (10, 5, 10, "2026-06-01 12:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (11, 6, 11, "2026-06-01 13:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (12, 6, 12, "2026-06-01 13:00:00");
 INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (13, 7, 13, "2026-06-01 10:00:00");
 INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (14, 7, 14, "2026-06-01 10:00:00");
-INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (15, 8, 15, "2026-06-01 10:00:00");
-INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (16, 8, 16, "2026-06-01 10:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (15, 8, 15, "2026-06-01 14:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (16, 8, 16, "2026-06-01 14:00:00");
 INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (17, 9, 17, "2026-06-01 10:00:00");
 INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (18, 9, 18, "2026-06-01 10:00:00");
-INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (19, 10, 19, "2026-06-01 10:00:00");
-INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (20, 10, 20, "2026-06-01 10:00:00");
-
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (19, 10, 19, "2026-06-01 21:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (20, 10, 20, "2026-06-01 21:00:00");
 
 # 2. SENTENCIAS DE ADQUISICIÓN CLIENTES
