@@ -246,3 +246,13 @@ INNER JOIN clientes as c
 	ON c.id = f.fk_clientes
 WHERE r.abierto = @RESTAURANTE_ABIERTO 
 	AND c.id = @CLIENTE_ID;
+    
+#2.3 ACTUALIZACIÓN FECHA Y HORA DE UNA RESERVA
+SET @FECHA_ACTUALIZADA = "2026-06-02 12:00:00";
+SET @CLIENTE_ID_2 = 2;
+SET @MESA_ID_3 = 3;
+
+UPDATE reservas as r
+SET fecha_reserva = @FECHA_ACTUALIZADA 
+WHERE r.fk_clientes = @CLIENTE_ID_2
+	AND r.fk_mesas = @MESA_ID_3
