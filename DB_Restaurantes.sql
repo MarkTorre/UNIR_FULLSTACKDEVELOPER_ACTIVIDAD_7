@@ -255,4 +255,14 @@ SET @MESA_ID_3 = 3;
 UPDATE reservas as r
 SET fecha_reserva = @FECHA_ACTUALIZADA 
 WHERE r.fk_clientes = @CLIENTE_ID_2
-	AND r.fk_mesas = @MESA_ID_3
+	AND r.fk_mesas = @MESA_ID_3;
+
+#2.4 ELIMINAR TODOS LOS RESTAURANTES FAVORITOS QUE NO SE ENCUENTRAN ABIERTOS PARA UN CLIENTE CONCRETO
+SET @RESTAURANTE_CERRADO = 0;
+SET @CLIENTE_ID_3 = 3;
+
+DELETE f FROM favoritos as f
+INNER JOIN restaurantes as r
+	ON r.id = f.fk_restaurantes
+WHERE r.abierto = @RESTAURANTE_CERRADO 
+	AND f.fk_clientes = @CLIENTE_ID_3;
