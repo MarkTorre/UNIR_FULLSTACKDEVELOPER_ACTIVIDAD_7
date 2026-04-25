@@ -139,7 +139,7 @@ INSERT IGNORE mesas(id, fk_restaurantes, numero, comensales) VALUES (6, 3, 2, 4)
 INSERT IGNORE mesas(id, fk_restaurantes, numero, comensales) VALUES (7, 4, 1, 2);
 INSERT IGNORE mesas(id, fk_restaurantes, numero, comensales) VALUES (8, 4, 2, 4);
 
-INSERT IGNORE mesas(id, fk_restaurantes, numero, comensales) VALUES (9, 5, 1, 8);
+INSERT IGNORE mesas(id, fk_restaurantes, numero, comensales) VALUES (9, 4, 3, 8);
 INSERT IGNORE mesas(id, fk_restaurantes, numero, comensales) VALUES (10, 5, 2, 4);
 
 INSERT IGNORE mesas(id, fk_restaurantes, numero, comensales) VALUES (11, 6, 1, 4);
@@ -203,7 +203,7 @@ INSERT IGNORE INTO favoritos(id, fk_restaurantes, fk_clientes) VALUES (20, 10, 1
 # 1.5 INSERCCIÓN 20 RESERVAS REPARTIDAS ENTRE TODOS LOS RESTAURANTES Y CLIENTES
 INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (1, 1, 1, "2026-06-01 10:00:00");
 INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (2, 1, 2, "2026-06-01 10:00:00");
-INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (3, 2, 3, "2026-06-02 10:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (3, 2, 2, "2026-06-02 11:00:00");
 INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (4, 2, 4, "2026-06-02 10:00:00");
 INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (5, 3, 5, "2026-06-03 11:00:00");
 INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (6, 3, 6, "2026-06-03 11:00:00");
@@ -221,11 +221,13 @@ INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (17
 INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (18, 9, 18, "2026-06-01 10:00:00");
 INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (19, 10, 19, "2026-06-01 21:00:00");
 INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (20, 10, 20, "2026-06-01 21:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (21, 2, 9, "2026-06-01 13:00:00");
+INSERT IGNORE INTO reservas(id, fk_clientes, fk_mesas, fecha_reserva) VALUES (22, 4, 9, "2026-06-01 17:00:00");
 
 # 2. SENTENCIAS DE ADQUISICIÓN CLIENTES
 #2.1 OBTENCIÓN TODAS LAS RESERVAS QUE TIENEN UN RESTAURANTE PARA UN DÍA CONCRETO (DATOS CLIENTE Y MESA RESERVADA).
 SET @RESTAURANTE_1 = 1;
-SET @FECHA_RESERVAS = "2026-06-01 10:00:00";
+SET @FECHA_RESERVA_1 = "2026-06-01 10:00:00";
 
 SELECT c.nombre, c.email, c.telefono, m.numero, m.comensales FROM clientes as c
 INNER JOIN reservas as r
@@ -233,7 +235,7 @@ INNER JOIN reservas as r
 INNER JOIN mesas as m
 	ON m.id = r.fk_clientes
 WHERE m.fk_restaurantes = @RESTAURANTE_1
-	AND r.fecha_reserva = @FECHA_RESERVAS;
+	AND r.fecha_reserva = @FECHA_RESERVA_1;
     
 #2.2 OBTENCIÓN TODAS LOS NOMBRES DE LOS RESTAURANTES FAVORITOS Y QUE ESTÉN ABIERTOS, PARA UN CLIENTE CONCRETO.
 SET @RESTAURANTE_ABIERTO = 1;
@@ -266,3 +268,28 @@ INNER JOIN restaurantes as r
 	ON r.id = f.fk_restaurantes
 WHERE r.abierto = @RESTAURANTE_CERRADO 
 	AND f.fk_clientes = @CLIENTE_ID_3;
+
+#2.5 SELECCIÓN NOMBRE RESTAURANTES CON MÁS DE TRES RESERVAS DE CUATRO O MÁS COMENSALES PARA UN DÍA ESPECÍFICO
+SET @DIA_RESERVA = "2026-06-01";
+SET @MIN_COMENSALES = 4;
+SET @NUMERO_RESERVAS = 3;
+
+SELECT r.nombre, COUNT(re.id) AS 'numero_reservas' FROM restaurantes AS r
+INNER JOIN mesas as m
+	ON m.fk_restaurantes = r.id
+INNER JOIN reservas as re
+	ON re.fk_mesas = m.id
+WHERE m.comensales >= @MIN_COMENSALES 
+	AND DATE(re.fecha_reserva) = @DIA_RESERVA
+GROUP BY r.id
+HAVING numero_reservas > @NUMERO_RESERVAS;
+
+#2.5 SELECCIÓN AFORO MÁXIMO PARA UN RESTAURANTE CONCRETO. (Total de P)
+SET @RESTAURANTE_ID_4 = 4;
+
+SELECT r.nombre, SUM(m.comensales) as 'aforo' FROM mesas as m
+INNER JOIN restaurantes as r
+	ON r.id = m.fk_restaurantes
+WHERE m.fk_restaurantes = @RESTAURANTE_ID_4
+GROUP BY r.id;
+
