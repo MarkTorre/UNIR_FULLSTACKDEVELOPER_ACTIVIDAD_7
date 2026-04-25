@@ -157,6 +157,11 @@ INSERT IGNORE mesas(id, fk_restaurantes, numero, comensales) VALUES (18, 9, 2, 4
 INSERT IGNORE mesas(id, fk_restaurantes, numero, comensales) VALUES (19, 10, 1, 5);
 INSERT IGNORE mesas(id, fk_restaurantes, numero, comensales) VALUES (20, 10, 2, 4);
 
+INSERT IGNORE mesas(id, fk_restaurantes, numero, comensales) VALUES (21, 10, 3, 2);
+INSERT IGNORE mesas(id, fk_restaurantes, numero, comensales) VALUES (22, 10, 4, 4);
+INSERT IGNORE mesas(id, fk_restaurantes, numero, comensales) VALUES (23, 10, 5, 6);
+INSERT IGNORE mesas(id, fk_restaurantes, numero, comensales) VALUES (24, 10, 6, 4);
+
 # 1.3 INSERCCIÓN 10 CLIENTES.
 INSERT IGNORE INTO clientes(id, email, nombre, telefono) VALUES (1, "juan.perez@gmail.com", "Juan Pérez", "600111222");
 INSERT IGNORE INTO clientes(id, email, nombre, telefono) VALUES (2, "maria.lopez@gmail.com", "María López", "600111223");
@@ -284,7 +289,7 @@ WHERE m.comensales >= @MIN_COMENSALES
 GROUP BY r.id
 HAVING numero_reservas > @NUMERO_RESERVAS;
 
-#2.5 SELECCIÓN AFORO MÁXIMO PARA UN RESTAURANTE CONCRETO. (Total de P)
+#2.6 SELECCIÓN AFORO MÁXIMO PARA UN RESTAURANTE CONCRETO.
 SET @RESTAURANTE_ID_4 = 4;
 
 SELECT r.nombre, SUM(m.comensales) as 'aforo' FROM mesas as m
@@ -292,4 +297,19 @@ INNER JOIN restaurantes as r
 	ON r.id = m.fk_restaurantes
 WHERE m.fk_restaurantes = @RESTAURANTE_ID_4
 GROUP BY r.id;
+
+#2.7 SELECCIÓN MESAS QUE DISPONGAN DE ESPACIO PARA DOS COMENSALES Y QUE SE ENCUENTREN DISPONIBLES EN UN RESTAURANTE ESPECÍFICO PARA UNA FECHA Y HORA CONCRETOS
+SET @FECHA_RESERVA = "2026-06-01 10:00:00";
+SET @MAX_COMENSALES = 2;
+SET @RESTAURANTE_ID = 2;
+
+SELECT m.* FROM mesas as m
+LEFT JOIN reservas as r
+	ON m.id = r.fk_mesas
+WHERE m.comensales >= @MAX_COMENSALES
+	AND m.fk_restaurantes = @RESTAURANTE_ID
+	AND (r.fecha_reserva IS NULL OR r.fecha_reserva != @FECHA_RESERVA);
+   # AND @FECHA_RESERVA != r.fecha_reserva;
+
+
 
