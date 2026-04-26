@@ -309,7 +309,26 @@ LEFT JOIN reservas as r
 WHERE m.comensales >= @MAX_COMENSALES
 	AND m.fk_restaurantes = @RESTAURANTE_ID
 	AND (r.fecha_reserva IS NULL OR r.fecha_reserva != @FECHA_RESERVA);
-   # AND @FECHA_RESERVA != r.fecha_reserva;
+
+#2.8 SELECCIÓN NOMBRE DEL CLIENTE QUE HA REALIZADO MÁS RESERVAS EN UN RESTAURANTE ESPECÍFICO DENTRO DE UN RANGO DE FECHAS DADO.
+#SELECT c.nombre FROM clientes AS c
+SET @RESTAURANTE_ID = 1;
+
+SELECT c.nombre FROM restaurantes AS r
+INNER JOIN mesas AS m
+	ON m.fk_restaurantes = r.id
+INNER JOIN reservas AS re
+	ON re.fk_mesas = m.id
+INNER JOIN clientes AS c
+	ON c.id = re.fk_clientes
+WHERE r.id = @RESTAURANTE_ID
+GROUP BY c.id
+ORDER BY COUNT(c.id) DESC
+LIMIT 1;
+
+
+    
+
 
 
 
